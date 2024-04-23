@@ -3,6 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../Store/app/store'
 import { storeSearch } from '../../Store/features/search/searchSlice'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export default function Search() {
   const search = useSelector((state: RootState) => state.search.value)
@@ -14,6 +15,7 @@ export default function Search() {
 
   return (
     <View style={styles.container}>
+      <Ionicons name="search-outline" size={30} />
       <TextInput style={styles.textInput} defaultValue={search} placeholder='Search...' onChangeText={(e) => handleTextInput(e)}/>
     </View>
   )
@@ -24,11 +26,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     borderColor: "#00000050",
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly"
   },
   textInput: {
     padding: 10,
     fontSize: 15,
-    fontWeight: "600"
+    fontWeight: "600",
+    width: "90%"
   }
 })

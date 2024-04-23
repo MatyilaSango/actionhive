@@ -55,17 +55,17 @@ export default function Todo() {
                 <View style={styles.card}>
                     <View style={styles.header}>
                         <Text style={styles.headerText}>{todo.type.toUpperCase()}</Text>
-                        <IonIcons name="exit" size={30} onPress={() => handleExitTodo()} />
+                        <IonIcons name="arrow-back-circle-outline" size={30} onPress={() => handleExitTodo()} />
                     </View>
                     <ScrollView>
                         <View style={styles.scrollView}>
                             <View style={styles.todoItem}>
-                                <Text style={styles.todoItemText}>Name:</Text>
+                                <Text style={styles.todoItemText}>Task name:</Text>
                                 <TextInput 
                                     style={styles.todoItemInput} 
                                     defaultValue={todo.note.head} 
                                     underlineColorAndroid="transparent"
-                                    placeholder="Name"
+                                    placeholder="Task name"
                                     onChangeText={(e) => {setNewTodo(prev => prev = {...prev, head: e})}}
                                 />
                             </View>

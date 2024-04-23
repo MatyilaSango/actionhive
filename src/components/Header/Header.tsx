@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <View style={styles.container}>
-      <LinearGradient colors={["white", "#220740", "#220740"]} style={styles.backgroundGradient}>
+      <LinearGradient colors={["#220740", "#220740"]} style={styles.backgroundGradient}>
         <Image source={require("../../../assets/favicon.png")} width={30} height={30}/>
         <Text style={styles.headerText}>Todo App</Text>
         <Text style={styles.timeText}>{time.toLocaleTimeString()}</Text>
