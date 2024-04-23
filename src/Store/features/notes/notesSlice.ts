@@ -17,7 +17,7 @@ export const notesSlice = createSlice({
             return [ ...state, action.payload ]
         },
         removeNote: (state, action: PayloadAction<string>) => {
-            return state.filter(note => note.head.toLowerCase() === action.payload.toLowerCase())
+            return state.filter(note => note.head.toLowerCase() !== action.payload.toLowerCase())
         }
     }
 })

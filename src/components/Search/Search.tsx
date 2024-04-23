@@ -24,9 +24,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     borderColor: "#00000050",
+    backgroundColor: "#fff"
   },
   textInput: {
     padding: 10,
-    fontSize: 15
+    fontSize: 15,
+    fontWeight: "600"
   }
 })
