@@ -4,17 +4,18 @@ import Ionicons from "@expo/vector-icons/Ionicons"
 import { useDispatch } from 'react-redux'
 import { storeTodo } from '../../Store/features/todo/todo'
 import { TNote } from '../../../types/types'
+import { TodoActions } from '../../enums/enums'
 
 export default function Add() {
     const dispatch = useDispatch()
 
     const handleShowTodo = () => {
-        dispatch(storeTodo({active: true, note: {} as TNote, type: "New Todo"}))
+        dispatch(storeTodo({active: true, note: {} as TNote, type: TodoActions.NEW_TODO}))
     }
 
     return (
         <View style={[styles.constainer, styles.shadowProp]}>
-            <Ionicons name="add-circle-sharp" size={80} color="green" onPress={() => handleShowTodo()}/>
+            <Ionicons name="add-circle-sharp" size={80} color="white" onPress={() => handleShowTodo()}/>
         </View>
     )
 }

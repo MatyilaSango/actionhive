@@ -4,6 +4,7 @@ import { TNote } from '../../../types/types'
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { storeTodo } from '../../Store/features/todo/todo'
 import { useDispatch } from 'react-redux'
+import { TodoActions } from '../../enums/enums'
 
 export default function Note({id, head, text, date}: TNote) {
   const dispatch = useDispatch()
@@ -12,7 +13,7 @@ export default function Note({id, head, text, date}: TNote) {
     const todo = {
       active: true,
       note: {id, head, text, date},
-      type: "Edit Todo"
+      type: TodoActions.EDIT_TODO
     }
     dispatch(storeTodo(todo))
   }

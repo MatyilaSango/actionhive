@@ -1,26 +1,50 @@
-import { Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import { RootState } from '../../Store/app/store'
 import { useDispatch, useSelector } from 'react-redux'
 import IonIcons from '@expo/vector-icons/Ionicons'
 import { storeTodo } from '../../Store/features/todo/todo'
 import { TNote } from '../../../types/types'
-import { removeNote } from '../../Store/features/notes/notesSlice'
+import { editNote, removeNote, storeNote } from '../../Store/features/notes/notesSlice'
+import { TodoActions } from "../../enums/enums"
 
 export default function Todo() {
     const todo = useSelector((state: RootState) => state.todo)
+    const [newTodo, setNewTodo] = useState<TNote>(todo.type === TodoActions.EDIT_TODO ? todo.note : {} as TNote)
     const dispatch = useDispatch()
 
     const handleExitTodo = () => {
-        dispatch(storeTodo({ active: false, note: {} as TNote, type: "" }))
+        dispatch(storeTodo({ active: false, note: {} as TNote, type: TodoActions.EXIT_TODO }))
     }
 
     const handleTodoSave = () => {
-        // To do
+        switch(todo.type){
+            case TodoActions.NEW_TODO:
+                dispatch(storeNote({ 
+                    id: new Date().toISOString(),
+                    head: newTodo.head,
+                    text: newTodo.text,
+                    date: new Date().toDateString()
+                }))
+                break;
+
+            case TodoActions.EDIT_TODO:
+                dispatch(editNote({ 
+                    id: todo.note.id,
+                    head: newTodo.head,
+                    text: newTodo.text,
+                    date: new Date().toDateString()
+                }))
+                break;
+
+            default:
+                break;
+        }
+        handleExitTodo()
     }
 
     const handleTodoDelete = () => {
-        if(todo.note.head) dispatch(removeNote(todo.note.head))
+        if(todo.note.id) dispatch(removeNote(todo.note.id))
         handleExitTodo()
     }
 
@@ -38,7 +62,8 @@ export default function Todo() {
                             <TextInput 
                                 style={styles.todoItemInput} 
                                 defaultValue={todo.note.head} 
-                                placeholder="Name" 
+                                placeholder="Name"
+                                onChangeText={(e) => {setNewTodo(prev => prev = {...prev, head: e})}}
                             />
                         </View>
                         <View style={styles.todoItem}>
@@ -48,16 +73,17 @@ export default function Todo() {
                                 defaultValue={todo.note.text} 
                                 placeholder="Description"
                                 multiline={true}
+                                onChangeText={(e) => {setNewTodo(prev => prev = {...prev, text: e})}}
                             />
                         </View>
                     </View>
                 </ScrollView>
                 <View style={styles.buttonsView}>
                     <TouchableOpacity style={[styles.button, styles.deleteButton]} onPress={(() => handleTodoDelete())}>
-                        <Text style={styles.buttonText}>{todo.note.head ? "Delete" : "Cancel"}</Text>
+                        <Text style={styles.buttonText}>{todo.note.id ? "Delete" : "Cancel"}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.button, styles.saveButton]} onPress={(() => handleTodoSave())}>
-                        <Text style={styles.buttonText}>Save</Text>
+                        <Text style={styles.buttonText} disabled={todo.note.id ? false : true}>Save</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -135,5 +161,4 @@ const styles = StyleSheet.create({
     saveButton: {
         backgroundColor: "blue"
     }
-
 })
