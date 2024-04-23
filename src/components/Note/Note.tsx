@@ -21,12 +21,14 @@ export default function Note({id, head, text, date}: TNote) {
   return (
     <View style={styles.container}>
       <View style={styles.dateView}>
-        <Text style={styles.dateText}>{date}</Text>
+        <View style={styles.dateTimeView}>
+          <Text style={styles.dateText}>{new Date(id).toLocaleTimeString()}</Text>
+          <Text style={styles.dateText}>{date}</Text>
+        </View>
+        <Ionicons name="pencil" size={30} onPress={() => handleShowTodo()}/>
       </View>
       <View style={styles.headView}>
-        <Text></Text>
         <Text style={styles.headText}>{head}</Text>
-        <Ionicons name="pencil" size={30} onPress={() => handleShowTodo()}/>
       </View>
       <View style={styles.bodyView}>
         <Text style={styles.bodyText}>{text}</Text>
@@ -46,16 +48,21 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#00000030",
         flexDirection: "row",
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
         padding: 10
     },
     dateText: {
-        fontSize: 12
+        fontSize: 12,
+        fontWeight: "600"
+    },
+    dateTimeView: {
+      flexDirection: "column",
+      alignItems: "flex-start"
     },
     headView: {
         padding: 10,
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "center"
     },
     headText: {
         fontSize: 20,

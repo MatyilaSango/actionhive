@@ -15,7 +15,7 @@ export default function Add() {
 
     return (
         <View style={[styles.constainer, styles.shadowProp]}>
-            <Ionicons name="add-circle-sharp" size={80} color="white" onPress={() => handleShowTodo()}/>
+            <Ionicons name="add-circle-sharp" size={80} color="green" onPress={() => handleShowTodo()}/>
         </View>
     )
 }
@@ -23,15 +23,13 @@ export default function Add() {
 const styles = StyleSheet.create({
     constainer: {
         position: "absolute",
-        bottom: 5,
-        right: 5,
+        bottom: 10,
+        right: 10,
         borderRadius: 40
     },
     shadowProp: {
-        shadowColor: '#000',
-        shadowOffset: {width: -2, height: 4},
+        shadowColor: 'green',
         shadowOpacity: 0.1,
-        shadowRadius: 3,
-        elevation: 10
+        elevation: 5
     },
 })
