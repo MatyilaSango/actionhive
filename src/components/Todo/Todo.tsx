@@ -7,6 +7,7 @@ import { storeTodo } from '../../Store/features/todo/todo'
 import { TNote } from '../../../types/types'
 import { editNote, removeNote, storeNote } from '../../Store/features/notes/notesSlice'
 import { TodoActions } from "../../enums/enums"
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function Todo() {
     const todo = useSelector((state: RootState) => state.todo)
@@ -50,43 +51,47 @@ export default function Todo() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.card}>
-                <View style={styles.header}>
-                    <Text style={styles.headerText}>{todo.type.toUpperCase()}</Text>
-                    <IonIcons name="exit" size={30} onPress={() => handleExitTodo()} />
-                </View>
-                <ScrollView>
-                    <View style={styles.scrollView}>
-                        <View style={styles.todoItem}>
-                            <Text style={styles.todoItemText}>Name:</Text>
-                            <TextInput 
-                                style={styles.todoItemInput} 
-                                defaultValue={todo.note.head} 
-                                placeholder="Name"
-                                onChangeText={(e) => {setNewTodo(prev => prev = {...prev, head: e})}}
-                            />
-                        </View>
-                        <View style={styles.todoItem}>
-                            <Text style={styles.todoItemText}>Description:</Text>
-                            <TextInput 
-                                style={styles.todoItemInput} 
-                                defaultValue={todo.note.text} 
-                                placeholder="Description"
-                                multiline={true}
-                                onChangeText={(e) => {setNewTodo(prev => prev = {...prev, text: e})}}
-                            />
-                        </View>
+            <LinearGradient colors={["#ffffff00", "#000000", "#ffffff00"]} style={styles.backgroundGradient}>
+                <View style={styles.card}>
+                    <View style={styles.header}>
+                        <Text style={styles.headerText}>{todo.type.toUpperCase()}</Text>
+                        <IonIcons name="exit" size={30} onPress={() => handleExitTodo()} />
                     </View>
-                </ScrollView>
-                <View style={styles.buttonsView}>
-                    <TouchableOpacity style={[styles.button, styles.deleteButton]} onPress={(() => handleTodoDelete())}>
-                        <Text style={styles.buttonText}>{todo.note.id ? "Delete" : "Cancel"}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.button, styles.saveButton]} onPress={(() => handleTodoSave())}>
-                        <Text style={styles.buttonText} disabled={todo.note.id ? false : true}>Save</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+                    <ScrollView>
+                        <View style={styles.scrollView}>
+                            <View style={styles.todoItem}>
+                                <Text style={styles.todoItemText}>Name:</Text>
+                                <TextInput 
+                                    style={styles.todoItemInput} 
+                                    defaultValue={todo.note.head} 
+                                    underlineColorAndroid="transparent"
+                                    placeholder="Name"
+                                    onChangeText={(e) => {setNewTodo(prev => prev = {...prev, head: e})}}
+                                />
+                            </View>
+                            <View style={styles.todoItem}>
+                                <Text style={styles.todoItemText}>Description:</Text>
+                                <TextInput 
+                                    style={styles.todoItemInput} 
+                                    defaultValue={todo.note.text} 
+                                    underlineColorAndroid="transparent"
+                                    placeholder="Description"
+                                    multiline={true}
+                                    onChangeText={(e) => {setNewTodo(prev => prev = {...prev, text: e})}}
+                                />
+                            </View>
+                        </View>
+                    </ScrollView>
+                    <View style={styles.buttonsView}>
+                        <TouchableOpacity style={[styles.button, styles.deleteButton]} onPress={(() => handleTodoDelete())}>
+                            <Text style={styles.buttonText}>{todo.note.id ? "Delete" : "Cancel"}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.button, styles.saveButton]} onPress={(() => handleTodoSave())}>
+                            <Text style={styles.buttonText} disabled={todo.note.id ? false : true}>Save</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>    
+            </LinearGradient>
         </View>
     )
 }
@@ -98,13 +103,21 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         height: "100%",
-        backgroundColor: "#00000050",
+        flexDirection: "column",
+        justifyContent: "center"
+    },
+    backgroundGradient: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         padding: 10,
         flexDirection: "column",
         justifyContent: "center"
     },
     card: {
-        height: "90%",
+        maxHeight: "90%",
         backgroundColor: "#fff",
         borderRadius: 20,
         padding: 10,
@@ -114,6 +127,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
         borderBottomWidth: 1,
         borderBottomColor: "#00000030",
     },
@@ -134,7 +148,7 @@ const styles = StyleSheet.create({
     },
     todoItemInput: {
         padding: 5,
-        color: "#00000070",
+        color: "#00000090",
         borderTopWidth: 1,
         borderBottomWidth: 1,
         borderColor: "#00000030"
