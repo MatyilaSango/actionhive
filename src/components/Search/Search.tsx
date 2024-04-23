@@ -1,18 +1,20 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View } from 'react-native'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../Store/app/store'
+import { storeSearch } from '../../Store/features/search/searchSlice'
 
 export default function Search() {
   const search = useSelector((state: RootState) => state.search.value)
+  const dispatch = useDispatch()
 
   const handleTextInput = (e: string) => {
-
+    dispatch(storeSearch({value: e}))
   }
 
   return (
     <View style={styles.container}>
-      <TextInput value={search} style={styles.textInput} placeholder='Search...' onChangeText={(e) => handleTextInput(e)}/>
+      <TextInput style={styles.textInput} defaultValue={search} placeholder='Search...' onChangeText={(e) => handleTextInput(e)}/>
     </View>
   )
 }

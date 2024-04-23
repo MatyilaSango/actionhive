@@ -14,7 +14,7 @@ export const searchSlice = createSlice({
     initialState,
     reducers: {
         storeSearch: (state, action: PayloadAction<TInitialState>) => {
-            state = { ...state, value: action.payload.value }
+            return { ...state, value: action.payload.value }
         }
     }
 })
