@@ -17,7 +17,7 @@ export default function Home() {
         <View style={styles.container}>
             <Search />
             <ScrollView>
-                <View style={styles.scrollWivew}>
+                <View>
                     {notes.map((note: TNote, indx: number) => 
                         <Note 
                             key={indx}
@@ -38,12 +38,8 @@ export default function Home() {
 const styles = StyleSheet.create({
     container: {
         position: "relative",
-        padding: 10,
         height: "88%",
         gap: 10,
         backgroundColor: "#220740"
     },
-    scrollWivew: {
-        gap: 10
-    }
 })
