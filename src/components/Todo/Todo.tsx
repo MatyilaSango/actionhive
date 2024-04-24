@@ -8,11 +8,13 @@ import { TNote } from '../../../types/types'
 import { editNote, removeNote, storeNote } from '../../Store/features/notes/notesSlice'
 import { TodoActions } from "../../enums/enums"
 import { LinearGradient } from 'expo-linear-gradient'
+import { useToast } from 'react-native-toast-notifications'
 
 export default function Todo() {
     const todo = useSelector((state: RootState) => state.todo)
     const [newTodo, setNewTodo] = useState<TNote>(todo.type === TodoActions.EDIT_TODO ? todo.note : {} as TNote)
     const dispatch = useDispatch()
+    const toast = useToast()
 
     const handleExitTodo = () => {
         dispatch(storeTodo({ active: false, note: {} as TNote, type: TodoActions.EXIT_TODO }))
@@ -21,12 +23,14 @@ export default function Todo() {
     const handleTodoSave = () => {
         switch(todo.type){
             case TodoActions.NEW_TODO:
+                if(!newTodo.head || ! newTodo.text) return toast.show(`Please fill out both task and description!`)
                 dispatch(storeNote({ 
                     id: new Date().toISOString(),
                     head: newTodo.head,
                     text: newTodo.text,
                     date: new Date().toDateString()
                 }))
+                toast.show("New task added!")
                 break;
 
             case TodoActions.EDIT_TODO:
@@ -45,7 +49,10 @@ export default function Todo() {
     }
 
     const handleTodoDelete = () => {
-        if(todo.note.id) dispatch(removeNote(todo.note.id))
+        if(todo.note.id) {
+            dispatch(removeNote(todo.note.id))
+            toast.show("Task deleted!")
+        }
         handleExitTodo()
     }
 
@@ -164,6 +171,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        borderRadius: 15
     },
     buttonText: {
         fontSize: 15,
