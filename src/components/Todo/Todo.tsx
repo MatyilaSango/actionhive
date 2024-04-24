@@ -9,6 +9,7 @@ import { editNote, removeNote, storeNote } from '../../Store/features/notes/note
 import { TodoActions } from "../../enums/enums"
 import { LinearGradient } from 'expo-linear-gradient'
 import { useToast } from 'react-native-toast-notifications'
+import { Button, Card } from '@rneui/themed'
 
 export default function Todo() {
     const todo = useSelector((state: RootState) => state.todo)
@@ -21,9 +22,9 @@ export default function Todo() {
     }
 
     const handleTodoSave = () => {
-        switch(todo.type){
+        switch (todo.type) {
             case TodoActions.NEW_TODO:
-                if(!newTodo.head || ! newTodo.text) return toast.show(`Please fill out both task and description!`)
+                if (!newTodo.head || !newTodo.text) return toast.show(`Please fill out both task and description!`)
                 dispatch(storeNote({ 
                     id: new Date().toISOString(),
                     head: newTodo.head,
@@ -49,7 +50,7 @@ export default function Todo() {
     }
 
     const handleTodoDelete = () => {
-        if(todo.note.id) {
+        if (todo.note.id) {
             dispatch(removeNote(todo.note.id))
             toast.show("Task deleted!")
         }
@@ -59,36 +60,41 @@ export default function Todo() {
     return (
         <View style={styles.container}>
             <LinearGradient colors={["#ffffff00", "#000000", "#ffffff00"]} style={styles.backgroundGradient}>
-                <View style={styles.card}>
+                <Card containerStyle={styles.card}>
                     <View style={styles.header}>
-                        <Text style={styles.headerText}>{todo.type.toUpperCase()}</Text>
-                        <IonIcons name="arrow-back-circle-outline" size={30} onPress={() => handleExitTodo()} />
+                        <Button color="transparent">
+                            <IonIcons name="arrow-back-circle-outline" size={30} onPress={() => handleExitTodo()} />
+                        </Button>
                     </View>
+                    <Card.Title>
+                        <Text style={styles.headerText}>{todo.type.toUpperCase()}</Text>
+                    </Card.Title>
                     <ScrollView>
                         <View style={styles.scrollView}>
                             <View style={styles.todoItem}>
                                 <Text style={styles.todoItemText}>Task name:</Text>
-                                <TextInput 
-                                    style={styles.todoItemInput} 
-                                    defaultValue={todo.note.head} 
+                                <TextInput
+                                    style={styles.todoItemInput}
+                                    defaultValue={todo.note.head}
                                     underlineColorAndroid="transparent"
                                     placeholder="Task name"
-                                    onChangeText={(e) => {setNewTodo(prev => prev = {...prev, head: e})}}
+                                    onChangeText={(e) => { setNewTodo(prev => prev = { ...prev, head: e }) }}
                                 />
                             </View>
                             <View style={styles.todoItem}>
                                 <Text style={styles.todoItemText}>Description:</Text>
-                                <TextInput 
-                                    style={styles.todoItemInput} 
-                                    defaultValue={todo.note.text} 
+                                <TextInput
+                                    style={styles.todoItemInput}
+                                    defaultValue={todo.note.text}
                                     underlineColorAndroid="transparent"
                                     placeholder="Description"
                                     multiline={true}
-                                    onChangeText={(e) => {setNewTodo(prev => prev = {...prev, text: e})}}
+                                    onChangeText={(e) => { setNewTodo(prev => prev = { ...prev, text: e }) }}
                                 />
                             </View>
                         </View>
                     </ScrollView>
+                    <Card.Divider />
                     <View style={styles.buttonsView}>
                         <TouchableOpacity style={[styles.button, styles.deleteButton]} onPress={(() => handleTodoDelete())}>
                             <Text style={styles.buttonText}>{todo.note.id ? "Delete" : "Cancel"}</Text>
@@ -97,7 +103,7 @@ export default function Todo() {
                             <Text style={styles.buttonText} disabled={todo.note.id ? false : true}>Save</Text>
                         </TouchableOpacity>
                     </View>
-                </View>    
+                </Card>
             </LinearGradient>
         </View>
     )
@@ -133,10 +139,8 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
         alignItems: "center",
-        borderBottomWidth: 1,
-        borderBottomColor: "#00000030",
     },
     headerText: {
         fontSize: 15,
