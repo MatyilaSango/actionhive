@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
-import { TNote } from "../../../../types/types"
+import { TNote } from "../../../components/Note/Note"
 
 type TInitialState = {
     active: boolean,

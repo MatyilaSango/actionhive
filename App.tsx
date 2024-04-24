@@ -18,7 +18,7 @@ export default function App() {
       <ToastProvider placement="bottom" duration={3000}>
         <View style={styles.container}>
           <Header />
-          <StatusBar style='auto'/>
+          {/* <StatusBar style='auto'/> */}
           <Home />
       </View>
       </ToastProvider>

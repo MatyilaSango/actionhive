@@ -1,10 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { TNote } from '../../../types/types'
 import { storeTodo } from '../../Store/features/todo/todo'
 import { useDispatch } from 'react-redux'
 import { TodoActions } from '../../enums/enums'
 import { Button, Card, Icon } from '@rneui/themed'
+
+export type TNote = {
+  id: string,
+  head: string,
+  date: string,
+  text: string,
+}
 
 export default function Note({ id, head, text, date }: TNote) {
   const dispatch = useDispatch()

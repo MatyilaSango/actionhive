@@ -2,9 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { storeTodo } from '../../Store/features/todo/todo'
-import { TNote } from '../../../types/types'
 import { TodoActions } from '../../enums/enums'
 import { Button, Icon } from '@rneui/themed'
+import { TNote } from '../Note/Note'
 
 export default function Add() {
     const dispatch = useDispatch()

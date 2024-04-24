@@ -4,12 +4,12 @@ import { RootState } from '../../Store/app/store'
 import { useDispatch, useSelector } from 'react-redux'
 import IonIcons from '@expo/vector-icons/Ionicons'
 import { storeTodo } from '../../Store/features/todo/todo'
-import { TNote } from '../../../types/types'
 import { editNote, removeNote, storeNote } from '../../Store/features/notes/notesSlice'
 import { TodoActions } from "../../enums/enums"
 import { LinearGradient } from 'expo-linear-gradient'
 import { useToast } from 'react-native-toast-notifications'
 import { Button, Card } from '@rneui/themed'
+import { TNote } from '../Note/Note'
 
 export default function Todo() {
     const todo = useSelector((state: RootState) => state.todo)

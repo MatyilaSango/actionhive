@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
-import { TNote } from "../../../../types/types"
+import { TNote } from "../../../components/Note/Note"
 
 const initialState : TNote[] = []
 // [...Array(10).keys()].map(value => ({
