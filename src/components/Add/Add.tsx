@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Ionicons from "@expo/vector-icons/Ionicons"
 import { useDispatch } from 'react-redux'
 import { storeTodo } from '../../Store/features/todo/todo'
 import { TNote } from '../../../types/types'
 import { TodoActions } from '../../enums/enums'
+import { Button, Icon } from '@rneui/themed'
 
 export default function Add() {
     const dispatch = useDispatch()
@@ -15,7 +15,9 @@ export default function Add() {
 
     return (
         <View style={[styles.constainer, styles.shadowProp]}>
-            <Ionicons name="add-circle-sharp" size={80} color="green" onPress={() => handleShowTodo()}/>
+            <Button size='md' radius={25} onPress={() => handleShowTodo()}>
+                <Icon size={50} name="add" />
+            </Button>
         </View>
     )
 }
