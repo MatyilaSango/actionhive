@@ -1,79 +1,76 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { TNote } from '../../../types/types'
-import Ionicons from "@expo/vector-icons/Ionicons"
 import { storeTodo } from '../../Store/features/todo/todo'
 import { useDispatch } from 'react-redux'
 import { TodoActions } from '../../enums/enums'
+import { Button, Card, Icon } from '@rneui/themed'
 
-export default function Note({id, head, text, date}: TNote) {
+export default function Note({ id, head, text, date }: TNote) {
   const dispatch = useDispatch()
 
   const handleShowTodo = () => {
     const todo = {
       active: true,
-      note: {id, head, text, date},
+      note: { id, head, text, date },
       type: TodoActions.EDIT_TODO
     }
     dispatch(storeTodo(todo))
   }
 
   return (
-    <View style={styles.container}>
+    <Card>
+      <Card.Title h4>{head}</Card.Title>
+      <Card.Divider />
       <View style={styles.dateView}>
         <View style={styles.dateTimeView}>
           <Text style={styles.dateText}>{new Date(id).toLocaleTimeString()}</Text>
           <Text style={styles.dateText}>{date}</Text>
         </View>
-        <Ionicons name="pencil" size={30} onPress={() => handleShowTodo()}/>
+        <Button color="transparent" onPress={() => handleShowTodo()}>
+          <Icon name="edit" size={30} />
+        </Button>
       </View>
-      <View style={styles.headView}>
-        <Text style={styles.headText}>{head}</Text>
-      </View>
+      <Card.Divider />
       <View style={styles.bodyView}>
         <Text style={styles.bodyText}>{text}</Text>
       </View>
-    </View>
+    </Card>
   )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        borderWidth: 1,
-        borderColor: "#00000030",
-        borderRadius: 10,
-        backgroundColor: "#fff"
-    },
-    dateView: {
-        borderBottomWidth: 1,
-        borderBottomColor: "#00000030",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        padding: 10
-    },
-    dateText: {
-        fontSize: 12,
-        fontWeight: "600"
-    },
-    dateTimeView: {
-      flexDirection: "column",
-      alignItems: "flex-start"
-    },
-    headView: {
-        padding: 10,
-        flexDirection: "row",
-        justifyContent: "center"
-    },
-    headText: {
-        fontSize: 20,
-        fontWeight: "bold"
-    },
-    bodyView: {
-        padding: 10,
-        height: 200,
-        overflow: "hidden",
-    },
-    bodyText: {
-        fontSize: 13,
-    }
+  container: {
+    borderWidth: 1,
+    borderColor: "#00000030",
+    borderRadius: 10,
+    backgroundColor: "#fff"
+  },
+  dateView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  dateText: {
+    fontSize: 12,
+    fontWeight: "600"
+  },
+  dateTimeView: {
+    flexDirection: "column",
+    alignItems: "flex-start"
+  },
+  headView: {
+    flexDirection: "row",
+    justifyContent: "center"
+  },
+  headText: {
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  bodyView: {
+    
+    overflow: "hidden",
+  },
+  bodyText: {
+    fontSize: 13,
+  }
 })
